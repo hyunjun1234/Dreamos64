@@ -5,6 +5,8 @@
 #include <ps2.h>
 #include <kernel.h>
 #include <logging.h>
+#include <stdlib.h>
+#include <string.h>
 
 //extern kernel_status_t kernel_settings;
 
@@ -171,4 +173,32 @@ key_codes translate(uint8_t scancode) {
     }
     extended_read = false;
     return scancode_mappings[0];
+}
+
+//read single character
+char rdSingleCh() {
+    char ch;
+    printf("Enter a character: ");
+    ch = getchar();
+    getchar();    //erase Enter
+    return ch;
+}
+
+// read String
+void rdString(char *str, int size) {
+    printf("Enter a string: ");
+    fgets(str, size, stdin);
+    size_t len = strlen(str);
+    if (len > 0 && str[len - 1] == '\n') {
+        str[len - 1] = '\0';
+    }
+}
+
+// read Integer 
+int rdInt() {
+    int num;
+    printf("Enter an integer: ");
+    scanf("%d", &num);
+    getchar(); // erase Enter
+    return num;
 }
